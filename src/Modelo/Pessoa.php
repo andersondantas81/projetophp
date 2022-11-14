@@ -4,21 +4,22 @@ namespace Anderson\Comercial\Modelo;
 //require_once "AcessoAtributos.php";
 require_once 'autoload.php';
 
+use DateTimeInterface;
+
 abstract class Pessoa
 {
   use AcessoAtributos;
   protected string $nome;
-  protected int $idade;
+  protected DateTimeInterface $dataNascimento;
   protected Endereco $endereco; // Associação pessoa endereço. Pessoa tem um endereço
   protected float $desconto;
   private static int $numDePessoas = 0;
 
-  public function __construct(string $nome, int $idade, Endereco $endereco) {
+  public function __construct(string $nome, DateTimeInterface $dataNascimento, Endereco $endereco) {
     $this->nome = $nome;
-    $this->idade = $idade;
+    $this->dataNascimento= $dataNascimento;
     $this->endereco = $endereco;
     self::$numDePessoas++;
-    $this->validaIdade($idade);
     $this->setDesconto();
   }
 
@@ -30,38 +31,43 @@ public function __destruct()
   public function getNome(): string{
     return $this->nome; 
   }
-  public function getIdade(): int{
-    return $this->idade; 
+  public function getDataNascimento(): DateTimeInterface {
+    return $this->dataNascimento; 
   }
 
-  public function getEndereco(): Endereco{
+  public function getEndereco(): Endereco {
     return $this->endereco; 
   }
 
-  public function setNome(string $nome): void{
-    $this->nome= $nome; 
+  public function setNome(string $nome): void {
+    $this->nome = $nome; 
   }
   
-  public function setIdade(string $idade): void{
-    $this->idade= $idade; 
+  public function setDataNascimento(DateTimeInterface $dataNascimento): void {
+    $this->dataNascimento = $dataNascimento; 
   }
 
-  public function setEndereco(Endereco $endereco): void{
+  public function setEndereco(Endereco $endereco): void {
     $this->endereco = $endereco; 
   }
 
-  public static function getNumDePessoas(): int{
+  public static function getNumDePessoas(): int {
     return self::$numDePessoas;
   }
 
-  private function validaIdade(int $idade): void{
-    if($this->idade > 0 AND $this->idade < 120){
-      $this->idade = $idade;
-    } else {
-      echo "Idade não permitida!";
-      exit;
-    }
+  //private function validaIdade(int $idade): void {
+  //  if($this->idade > 0 AND $this->idade < 120){
+  //   $this->idade = $idade;
+  //  } else {
+  //    echo "Idade não permitida!";
+  //    exit;
+  //  }
+  //}
+  
+  public function idade(): int {
+    return $this->getDataNascimento()->diff(new \DataTimeImmutable())->y; 
   }
+  
   protected abstract function setDesconto() : void;
 
   public function getDesconto(): float {
