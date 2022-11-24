@@ -4,14 +4,16 @@ namespace Anderson\Comercial\Modelo;
 //require_once "Autenticar.php";
 require_once 'autoload.php';
 
+use DateTimeInterface;
+
 class Funcionario extends Pessoa implements Autenticar
 {
   public string $cargo;
   public float $salario;
   private string $senha;
 
-  public function __construct(string $cargo, float $salario, string $nome, int $idade, Endereco $endereco) {
-    parent::__construct($nome, $idade, $endereco);
+  public function __construct(string $cargo, float $salario, string $nome, DateTimeInterface $dataNascimento, Endereco $endereco) {
+    parent::__construct($nome, $dataNascimento, $endereco);
     $this->cargo= $cargo;
     $this->salario = $salario;
   }
@@ -47,6 +49,7 @@ class Funcionario extends Pessoa implements Autenticar
   {
     return "<p>Nome: " . $this->nome . 
                "<br>Idade: " . $this->idade . "anos" .
+               "<br>Nasc.: " . $this->getDataNascimento()->format('d/m/Y') .
                "<br>Endereço: " . $this->endereco->getNomeLogradouro() . ", " .
                $this->endereco->getNumero() . ", " .
                $this->endereco->getBairro() . ", " .
