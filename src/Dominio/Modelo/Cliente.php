@@ -1,6 +1,7 @@
 <?php
 
-namespace Anderson\Comercial\Modelo;
+namespace Anderson\Comercial\Dominio\Modelo;
+
 class Cliente extends Pessoa
 {
   public float $renda;

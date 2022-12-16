@@ -2,7 +2,7 @@
   
   namespace Anderson\Comercial\Dominio\Repositorio;
   
-  use Anderson\Comercial\Modelo\Produto;
+  use Anderson\Comercial\Dominio\Modelo\Produto;
   
   interface RepositorioProdutos {
   

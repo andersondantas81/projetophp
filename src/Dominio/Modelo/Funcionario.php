@@ -1,6 +1,7 @@
 <?php
 
-namespace Anderson\Comercial\Modelo;
+namespace Anderson\Comercial\Dominio\Modelo;
+
 //require_once "Autenticar.php";
 require_once 'autoload.php';
 

@@ -4,9 +4,9 @@
 // require_once 'src/Modelo/Funcionario.php';
 require_once 'autoload.php';
 
-use Anderson\Comercial\Modelo\Pessoa;
-use Anderson\Comercial\Modelo\Endereco;
-use Anderson\Comercial\Modelo\Funcionario;
+use Anderson\Comercial\Dominio\Modelo\Pessoa;
+use Anderson\Comercial\Dominio\Modelo\Endereco;
+use Anderson\Comercial\Dominio\Modelo\Funcionario;
 
 $endereco = new Endereco('CE', 'Fortaleza', 'Rua Padré Chevalier', '606', 'Joaquim Távora', '60130-080');
 

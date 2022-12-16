@@ -1,7 +1,7 @@
 <?php
 
-  namespace Anderson\Comercial\Modelo;
-
+  namespace Anderson\Comercial\Dominio\Modelo;
+  
   class Produto {
     private ?int $idProduto;
     private string $nomeProduto;
