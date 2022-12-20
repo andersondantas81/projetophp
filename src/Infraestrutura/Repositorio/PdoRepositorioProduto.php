@@ -27,13 +27,34 @@
             }
         }
         public function createProduto(Produto $produto): bool { 
-
+            $sqlInsert = "INSERT INTO produto (nomeProduto, precoProduto) VALUES (:nome, :preco);";
+            $stmt = $this->conexao->prepare($sqlInsert);
+            $stmt->bindValue(':nome', $produto->getProduto(), PDO::PARAM_STR));
+            $stmt->bindValue(':preco', $produto->getPreco(), PDO::PARAM_STR); 
+            $sucesso = $stmt->execute();
+            
+            if($sucesso) {
+                $produto->setIdProduto($this->conexao->lastInsertId());
+            }
+            
+            return $sucesso;
         }
         public function readProduto(Produto $produto): array {
-
+            $sqlConsulta = "SELECT * FROM produto WHERE idProduto = :id;";
+            $stmt = $this->conexao->prepare($sqlConsulta);
+            $stmt->bindValue(":id", $produto->getIdProduto(), PDO::PARAM_INT);
+            $stmt->execute();
+            
+            return $this->hidratarListaProdutos($stmt);
         }
         public function updateProduto(Produto $produto): bool {
-
+            $sqlUpdate = "UPDATE produto SET nomeProduto = :nome, precoProduto = :preco WHERE idProduto = :id;";
+            $stmt = $this->conexao->prepare($sqlUpdate);
+            $stmt->bindValue(':nome', $produto->getProduto(), PDO::PARAM_STR); 
+            $stmt->bindValue(':preco', $produto->getPreco(), PDO::PARAM_STR); 
+            $stmt->bindValue(':id', $produto->getIdProduto(), PDO::PARAM_STR); 
+            
+            return $stmt->execute();
         }
         public function deleteProduto(Produto $produto): bool {
             $stmt = $this->conexao->prepare('DELETE FROM produto WHERE idProduto = ?;');
